@@ -6,7 +6,7 @@ import 'package:flutter_excel/excel.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart';
 import 'package:flutter/foundation.dart';
-import 'handlingExcelFiles.dart';
+import 'package:amad/handlingExcelFiles.dart';
 
 
 
@@ -69,41 +69,67 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-    void _incrementCounter() async{
+  void _incrementCounter() async{
 
-    }
-
-    @override
-    Widget build(BuildContext context) {
-      FilePickerResult? result;
-      File? file;
-      Excelfiles excelobj=new Excelfiles();
-
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-
-               ElevatedButton(
-                onPressed: () async {
-                 excelobj.createexcelfile();
-                },
-                child: const Text('create an excel file'),
-              ),
-
-
-            ],
-          ),
-        ),
-       // This trailing comma makes auto-formatting nicer for build methods.
-      );
-    }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    FilePickerResult? result;
+    File? file;
+    Excelfiles excelobj=new Excelfiles();
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () async {
+                // x=filecontaint as String;
+                try {
+                  result = await FilePicker.platform.pickFiles();
+                  // result = await FilePicker.platform.pickFiles();
+                  if (result != null) {
+                    if (!kIsWeb) {
+                      file = File(result!.files.single.path!);
+                      excelobj.readexcelfile(file);
+                    }
+                  } else {
+                    print("user cancled the picker");
+                    // User canceled the picker
+                  }
+
+                } catch (_) {}
+                super.setState(()  {
+
+                });
+              },
+              child: const Text('Pick a Text file File'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                excelobj.createexcelfile();
+              },
+              child: const Text('create an excel file'),
+            ),
+
+
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
 
 
 
