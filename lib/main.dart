@@ -40,6 +40,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController BillNo=TextEditingController();
   TextEditingController bookName=TextEditingController();
   TextEditingController Auther=TextEditingController();
   TextEditingController Price=TextEditingController();
@@ -59,6 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              TextFormField(
+                controller: BillNo,
+                decoration: InputDecoration(
+                  labelText: 'Bill No',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: bookName,
                 decoration: InputDecoration(
@@ -91,7 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Auther.text,
                     Price.text,
                   ];
-                 excelobj.createexcelfile(bookDetails);
+                  clear();
+                 excelobj.createexcelfile(bookDetails,BillNo.text);
+
                 },
                 child: const Text('create an excel file'),
               ),
@@ -103,6 +114,14 @@ class _MyHomePageState extends State<MyHomePage> {
        // This trailing comma makes auto-formatting nicer for build methods.
       );
     }
+  @override
+  void clear() {
+      BillNo.clear();
+    bookName.clear();
+    Auther.clear();
+    Price.clear();
+
+  }
   }
 
 
