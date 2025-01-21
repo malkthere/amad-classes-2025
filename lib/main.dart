@@ -100,9 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Auther.text,
                     Price.text,
                   ];
-                  clear();
-                 excelobj.createexcelfile(bookDetails,BillNo.text);
 
+                 excelobj.createexcelfile(bookDetails,BillNo.text);
+                  clear();
                 },
                 child: const Text('create an excel file'),
               ),
@@ -117,9 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void clear() {
       BillNo.clear();
-    bookName.clear();
-    Auther.clear();
-    Price.clear();
+      bookName.clear();
+      Auther.clear();
+      Price.clear();
 
   }
   }
