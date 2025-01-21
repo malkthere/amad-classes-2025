@@ -1,8 +1,8 @@
+//import 'package:amad/pdfiles.dart';
 import 'package:amad/PdfPreviewPage.dart';
-import 'package:amad/pdfiles.dart';
+import 'package:amad/sell_A_Product.dart';
 import 'package:flutter/material.dart';
-
-
+//String x="";
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
+
+
   final String title;
 
   @override
@@ -36,10 +38,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  Textfiles fileobj = Textfiles();
-  final TextEditingController bookName = TextEditingController();
-  final TextEditingController author = TextEditingController();
-  final TextEditingController price = TextEditingController();
+
+
 
   String text = "Your text to display below image";
 
@@ -49,44 +49,25 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: const Text("Sales Bill"),),
       body: Column(
         children: [
-          Image.asset("assets/phone.png"),
-          TextFormField(
-            controller: bookName,
-            decoration: InputDecoration(
-              labelText: 'Book Name',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: author,
-            decoration: InputDecoration(
-              labelText: 'Author',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: price,
-            decoration: InputDecoration(
-              labelText: 'Price',
-              border: OutlineInputBorder(),
-             // keyboardType: TextInputType.number,
-            ),
-          ),
+          Image.asset("assets/phone2.png"),
           Text(text),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Sellproducts(),
+                ),
+              );
+            },
+            child: const Text('sell a product'),
+          ),
+
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          final bookDetails = [
-            bookName.text,
-            author.text,
-            price.text,
-          ];
-          Navigator.of(context).push(MaterialPageRoute(builder: (context){
-            return  PdfPreviewPage(bookDetails);
-          }));
+
         },
         child: const Icon(Icons.picture_as_pdf_sharp),
       ),
