@@ -40,57 +40,27 @@ class Excelfiles {
 
   }
 
-  void readexcelfile(File? file) async {
+  void readexcelfile(File? pickedfile) async {
 
-    var bytes = file!.readAsBytesSync();
+
+
+    var bytes = File(pickedfile!.path).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
-
+    String? printedraw="";
+    // Print contents
     for (var table in excel.tables.keys) {
-      // print(table); //sheet Name
-      ////  print(excel.tables[table]?.maxCols);
-      // print(excel.tables[table]?.maxRows);
-      int counter=0;
+      // print('Table: $table');
       for (var row in excel.tables[table]!.rows) {
-        // print("$row");
-        if(counter==1){
-          int counter2=0;
-          for (var cell in row) {
-            if(counter2==4) {
-              //  print('cell ${cell!.rowIndex}/${cell.columnIndex}');
-              if (cell != null)
-                print(cell!.value);
-            }
-            counter2++;
-          }
+        //print('$row');
+        printedraw="";
+        for (var cell in row) {
+
+          if (cell != null)
+            printedraw= printedraw!+" "+cell!.value.toString();
+          //print(cell!.value);
+
         }
-        if(counter==2){
-          int counter2=0;
-          for (var cell in row) {
-            if(counter2==4) {
-              //  print('cell ${cell!.rowIndex}/${cell.columnIndex}');
-              if (cell != null)
-                print(cell!.value);
-            }
-            counter2++;
-          }
-        }
-        if(counter>6){
-          int counter2=0;
-          for (var cell in row) {
-            if(counter2==1) {
-              //  print('cell ${cell!.rowIndex}/${cell.columnIndex}');
-              if (cell != null)
-                print(cell!.value);
-            }
-            if(counter2==2) {
-              //  print('cell ${cell!.rowIndex}/${cell.columnIndex}');
-              if (cell != null)
-                print(cell!.value);
-            }
-            counter2++;
-          }
-        }
-        counter++;
+        print(printedraw);
       }
     }
   }
